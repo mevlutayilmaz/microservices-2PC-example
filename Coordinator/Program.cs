@@ -15,7 +15,7 @@ builder.Services.AddHttpClient("OrderAPI", client => client.BaseAddress = new("h
 builder.Services.AddHttpClient("PaymentAPI", client => client.BaseAddress = new("https://localhost:7293/"));
 builder.Services.AddHttpClient("StockAPI", client => client.BaseAddress = new("https://localhost:7127/"));
 
-builder.Services.AddSingleton<ITransactionService, TransactionService>();
+builder.Services.AddTransient<ITransactionService, TransactionService>();
 
 var app = builder.Build();
 
@@ -37,10 +37,10 @@ app.MapGet("/create-order-transaction", async (ITransactionService _transactionS
         //Phase 2 - Commit
         await _transactionService.CommitAsync(transactionId);
         transactionState =  await _transactionService.CheckTransactionStateServicesAsync(transactionId);
-
-        if (!transactionState)
-            await _transactionService.RollbackAsync(transactionId);
     }
+
+    if (!transactionState)
+        await _transactionService.RollbackAsync(transactionId);
 
 });
 

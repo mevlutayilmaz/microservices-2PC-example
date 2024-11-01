@@ -5,7 +5,7 @@ var app = builder.Build();
 app.MapGet("/ready", () =>
 {
     Console.WriteLine("Stock service is ready");
-    return true;
+    return false;
 });
 
 app.MapGet("/commit", () =>
