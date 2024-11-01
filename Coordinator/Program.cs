@@ -11,9 +11,9 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<TwoPhaseCommitContext>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("MSSQLServer")));
 
-builder.Services.AddHttpClient("OrderAPI", client => client.BaseAddress = new(""));
-builder.Services.AddHttpClient("PaymentAPI", client => client.BaseAddress = new(""));
-builder.Services.AddHttpClient("StockAPI", client => client.BaseAddress = new(""));
+builder.Services.AddHttpClient("OrderAPI", client => client.BaseAddress = new("https://localhost:7087/"));
+builder.Services.AddHttpClient("PaymentAPI", client => client.BaseAddress = new("https://localhost:7293/"));
+builder.Services.AddHttpClient("StockAPI", client => client.BaseAddress = new("https://localhost:7127/"));
 
 builder.Services.AddSingleton<ITransactionService, TransactionService>();
 
